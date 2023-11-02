@@ -17,7 +17,7 @@ public class Utilisateur {
 	private String login;
 	
 	/** Mot de passe (hashé et salé) de l'utilisateur·rice */
-	private String motDePasse;
+	private String motDePasseHash;
 	
 	/** Le coût d'impression à facturer pour cet·te utilisateur·rice */
 	private double coutDimpression;
@@ -28,10 +28,8 @@ public class Utilisateur {
 	/** Le nombre d'impressions restantes à facturer */
 	private int impressionsAFacturer;
 	
-	public Utilisateur(String nom, String prenom) {
+	public Utilisateur(String login, String motdepasse) {
 		impressions = new ArrayList<Impression>();
-		this.nom = nom;
-		this.prenom = prenom;
 		coutDimpression = 0;
 		impressionsAFacturer = 0;
 		InitialiserUtilisateur(nom, prenom);
