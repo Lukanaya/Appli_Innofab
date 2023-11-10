@@ -33,5 +33,21 @@ public class Impression {
 	
 	/** Identifiant unique d'impression */
 	private int identifiant;
+	
+	public Impression(Utilisateur utilisateur, Date date, Machine machine, double poids, int duree, String couleur, Matiere matiere) {
+		this.utilisateur = utilisateur;
+		this.date = date;
+		this.machine = machine;
+		this.poids = poids;
+		this.duree = duree;
+		this.couleur = couleur;
+		this.matiere = matiere;
+		facturee = false;
+		identifiant = GestionFichiers.lireOuGenererIdentifiant("ListeImpressions.csv");
+	}
+
+	public void enregistrerImpression() {
+		
+	}
 
 }

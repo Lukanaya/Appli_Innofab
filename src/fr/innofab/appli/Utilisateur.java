@@ -1,6 +1,8 @@
 package fr.innofab.appli;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Un·e utilisateur·ice du fablab, iel peut ajouter des impressions à son nom ainsi que les modifier.
@@ -16,8 +18,8 @@ public class Utilisateur {
 	/** Login de l'utilisateur·rice */
 	private String login;
 	
-	/** Mot de passe (hashé et salé) de l'utilisateur·rice */
-	private String motDePasseHash;
+	/** Mot de passe de l'utilisateur·rice */
+	private String motDePasse;
 	
 	/** Le coût d'impression à facturer pour cet·te utilisateur·rice */
 	private double coutDimpression;
@@ -35,7 +37,9 @@ public class Utilisateur {
 		InitialiserUtilisateur(nom, prenom);
 	}
 	
-	public void AjouterImpression() {
+	public void AjouterImpression(Machine machine, double poids, int duree, String couleur, Matiere matiere) {
+		Date date = new Date();
+		impressions.add(new Impression(this, date, machine, poids, duree, couleur, matiere));
 		
 	}
 	

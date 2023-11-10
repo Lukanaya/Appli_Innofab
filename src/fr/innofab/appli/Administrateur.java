@@ -8,7 +8,6 @@ public class Administrateur extends Utilisateur {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void AjouterImpression() {
 
 	}
