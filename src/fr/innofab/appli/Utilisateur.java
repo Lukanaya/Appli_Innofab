@@ -1,6 +1,6 @@
 package fr.innofab.appli;
 
-import java.time.LocalDate;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,6 +31,17 @@ public class Utilisateur {
 	private int impressionsAFacturer;
 	
 	public Utilisateur(String login, String motdepasse) {
+		this.login = login;
+		this.motDePasse = motdepasse;
+		String[] infosUtilisateur = new String[4];
+		try {
+			infosUtilisateur = GestionFichiers.lireUtilisateur(login, motdepasse, "utilisateurs.csv");
+			nom = infosUtilisateur[3];
+			prenom = infosUtilisateur[2];
+			
+		}catch (IOException exc) {
+			System.out.println("problème");
+		}
 		impressions = new ArrayList<Impression>();
 		coutDimpression = 0;
 		impressionsAFacturer = 0;
@@ -89,6 +100,11 @@ public class Utilisateur {
 
 	public void setImpressionsAFacturer(int impressionsAFacturer) {
 		this.impressionsAFacturer = impressionsAFacturer;
+	}
+	
+	@Override
+	public String toString() {
+		return nom + " " + prenom;
 	}
 
 }

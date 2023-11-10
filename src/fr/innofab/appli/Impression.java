@@ -1,5 +1,6 @@
 package fr.innofab.appli;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -43,7 +44,12 @@ public class Impression {
 		this.couleur = couleur;
 		this.matiere = matiere;
 		facturee = false;
-		identifiant = GestionFichiers.lireOuGenererIdentifiant("ListeImpressions.csv");
+		try {
+			identifiant = GestionFichiers.lireOuGenererIdentifiant("ListeImpressions.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void enregistrerImpression() {

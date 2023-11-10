@@ -3,8 +3,8 @@ package fr.innofab.appli;
 
 public class Administrateur extends Utilisateur {
 
-	public Administrateur(String nom, String prenom) {
-		super(nom, prenom);
+	public Administrateur(String login, String mdp) {
+		super(login, mdp);
 		// TODO Auto-generated constructor stub
 	}
 
