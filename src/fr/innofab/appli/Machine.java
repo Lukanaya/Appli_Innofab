@@ -58,6 +58,37 @@ public class Machine {
 	public void setMatiere(ArrayList<Matiere> matiere) {
 		this.matiere = matiere;
 	}
+	
+	public static ArrayList<Machine> lireFichierMachines(String chemin) {
+		BufferedReader lecteur = GestionFichiers.lireFichier(chemin);
+		String ligne;
+		ArrayList<Machine> machines = new ArrayList<Machine>();
+		if (!(lecteur == null)) {
+			try {
+				while ((ligne = lecteur.readLine()) != null) {
+					ArrayList<Matiere> matiere = new ArrayList<Matiere>();
+					Machine machine = new Machine();
+					String[] colonnes = ligne.split(",");
+					if (colonnes.length > 0) {
+						machine.setNom(colonnes[0]);
+						machine.setType(colonnes[1]);
+						machine.setCoutUtilisation(Double.parseDouble(colonnes[2]));
+						for (int i = 3; i < colonnes.length; i += 2) {
+							matiere.add(new Matiere(colonnes[i], Double.parseDouble(colonnes[i + 1])));
+						}
+						machine.setMatiere(matiere);
+						machines.add(machine);
+					}
+				}
+				lecteur.close();
+			} catch (IOException e) {
+				System.out.println("Erreur lors de la lecture du fichier : " + chemin);
+			}
+		} else {
+			GestionFichiers.ecrireFichier(chemin); // on crée le fichier
+		}
+		return machines;
+	}
 
 	public String toString() {
 		StringBuilder chaine = new StringBuilder();
