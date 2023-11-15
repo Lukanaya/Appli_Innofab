@@ -1,5 +1,6 @@
 package fr.innofab.appli;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,22 +31,51 @@ public class Utilisateur {
 	/** Le nombre d'impressions restantes à facturer */
 	private int impressionsAFacturer;
 	
+	/**
+	 * Connexion d'un utilisateur au logiciel, on charge sa liste d'impressions en mémoire.
+	 * @param login le login de l'utilisateur
+	 * @param motdepasse le mot de passe de l'utilisateur
+	 */
 	public Utilisateur(String login, String motdepasse) {
 		this.login = login;
 		this.motDePasse = motdepasse;
 		String[] infosUtilisateur = new String[4];
-		try {
-			infosUtilisateur = GestionFichiers.lireUtilisateur(login, motdepasse, "utilisateurs.csv");
-			nom = infosUtilisateur[3];
-			prenom = infosUtilisateur[2];
-			
-		}catch (IOException exc) {
-			System.out.println("problème");
-		}
+		infosUtilisateur = lireUtilisateur(login, motdepasse, "utilisateurs.csv");
+		prenom = infosUtilisateur[2];
+		nom = infosUtilisateur[3];
 		impressions = new ArrayList<Impression>();
 		coutDimpression = 0;
 		impressionsAFacturer = 0;
 		InitialiserUtilisateur(nom, prenom);
+	}
+
+	public static String[] lireUtilisateur(String login, String mdp, String chemin) {
+
+		String[] utilisateur = new String[4];
+
+		if (!(GestionFichiers.ecrireFichier(chemin) == null)) { // on vérifie l'existence du fichier
+			try {
+				// Lire l'utilisateur à partir du fichier CSV
+				BufferedReader lecteur = GestionFichiers.lireFichier(chemin);
+				String ligne;
+
+				// Trouver l'utilisateur correspondant dans le fichier
+				while ((ligne = lecteur.readLine()) != null) {
+					String[] colonnes = ligne.split(",");
+					if (colonnes.length > 0) {
+						if (colonnes[0].equals(login) && colonnes[1].equals(mdp)) {
+							System.arraycopy(colonnes, 0, utilisateur, 0, colonnes.length);
+						}
+					}
+				}
+				lecteur.close();
+			} catch (IOException e) {
+				System.out.println("Il y a eu un problème avec le fichier.");
+			}
+		}
+
+		return utilisateur;
+
 	}
 	
 	public void AjouterImpression(Machine machine, double poids, int duree, String couleur, Matiere matiere) {
