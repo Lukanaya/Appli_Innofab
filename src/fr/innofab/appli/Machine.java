@@ -65,11 +65,4 @@ public class Machine {
 		chaine.append(matiere.toString());
 		return chaine.toString();
 	}
-	
-//	public String valueOf() {
-//		StringBuilder chaine = new StringBuilder();
-//		chaine.append("La machine " + nom + " de type " + type + " coute " + coutUtilisation + "€/h ou par m et utilise ces matières :\n");
-//		chaine.append(matiere.toString());
-//		return chaine.toString();
-//	}
 }
